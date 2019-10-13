@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Metric-Imperial Converter</title>
+    <meta name="description" content="A cool thing made with HyperDev">
+    <link id="favicon" rel="icon" href="https://prostostyle.com/wp-content/uploads/fancy-letter-e-capital-in-cursive-calligraphy-1-great-worksheets-5-operation-sandbox.jpg" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./public/style.css">
+  </head>
+  <body>
+    <header>
+      <h1 class="project">
+        Metric-Imperial Converter
+      </h1>
+    </header>
+    
+    <div id="userstories" style="margin-left: 0%; margin-top: 5%">
+      <h3>
+        You can now convert metric to imperial and vice-versa easily. <br>You can either use the input box below or the address bar on top.
+      </h3>
+      
+      <h3>Example usage:</h3>
+      <code>/api/convert?input=4gal</code><br>
+      <code>/api/convert?input=1/2km</code><br>
+      <code>/api/convert?input=5.4/3lbs</code><br>
+      <code>/api/convert?input=kg</code><br>
+      <h3>Example return:</h3>
+      <code>{"initNum":1,"initUnit":"kg","returnNum":2.2046244201837775,"returnUnit":"lbs","string":"1 kilograms converts to 2.20462 pounds"}
+</code>
+    </div>
+    <hr style="margin: 50px">
+    <div id="testui" style="margin-left: 0%">
+      <h2 style="text-align: center">Front-End:</h2>
+      <form id="convertForm" class="border">
+        <input type="text" id="convertField" name="input" placeholder="5kg" style="width: 200px">
+        <input id="convert" type="submit" value="Convert!">
+      </form>
+      <p id="result"></p>
+      <code id="jsonResult"></code>
+    </div>
+    <p>
+          by </p>
+        <p>
+          <strong>The Movement To Metric Content</strong>
+        </p>
+    <hr style="margin: 50px; margin-top: 200px">
+    <!-- Your web-app is https, so your scripts need to be too -->
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"
+            integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
+            crossorigin="anonymous"></script>
+    <script>
+      $(function() {
+        $("#convertForm").submit(function() {
+          event.preventDefault();
+          $.ajax({
+            url: "/api/convert",
+            type: "get",
+            data: $("#convertForm").serialize(),
+            success: function(data) {
+              $("#result").text(data.string || data);
+              $("#jsonResult").text(JSON.stringify(data));
+            }
+          });
+        });
+      });
+   </script>
+  </body>
+</html>
