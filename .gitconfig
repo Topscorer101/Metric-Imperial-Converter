@@ -1,0 +1,2 @@
+[clone]
+excludesfile = /etc/.gitignore-global
